@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~    Copyright 2021 Huawei Technologies Co., Ltd.
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.edgegallery.commonservice.cbb.mapper.ReverseProxyMapper">
+  <resultMap id="ReverseProxyMap" type="org.edgegallery.commonservice.cbb.model.ReverseProxy">
+    <result property="destHostIp" column="dest_host_ip"/>
+    <result property="destHostPort" column="dest_host_port"/>
+    <result property="localPort" column="local_port"/>
+    <result property="nextHopProtocol" column="next_hop_protocol"/>
+    <result property="nextHopIp" column="next_hop_ip"/>
+    <result property="nextHopPort" column="next_hop_port"/>
+    <result property="linkNumber" column="link_number"/>
+    <result property="hopIndex" column="hop_index"/>
+  </resultMap>
+
+  <insert id="createReverseProxy">
+    insert into tbl_reverse_proxy (dest_host_ip, dest_host_port, local_port, next_hop_protocol,
+                                   next_hop_ip, next_hop_port, link_number, hop_index)
+    values
+    (#{destHostIp}, #{destHostPort}, #{localPort}, #{nextHopProtocol},
+              #{nextHopIp}, #{nextHopPort}, #{linkNumber}, #{hopIndex})
+  </insert>
+
+  <delete id="deleteReverseProxy">
+    DELETE FROM tbl_reverse_proxy WHERE dest_host_ip = #{destHostIp} and dest_host_port=#{destHostPort}
+  </delete>
+
+  <update id="modifyLinkNumber" parameterType="org.edgegallery.commonservice.cbb.model.ReverseProxy">
+    UPDATE tbl_reverse_proxy SET link_number = #{linkNumber}
+    WHERE dest_host_ip = #{destHostIp} and dest_host_port=#{destHostPort}
+  </update>
+
+  <select id="getReverseProxy" resultMap="ReverseProxyMap">
+    SELECT
+    dest_host_ip, dest_host_port, local_port, next_hop_protocol, next_hop_ip, next_hop_port, link_number, hop_index
+    FROM tbl_reverse_proxy
+    WHERE dest_host_ip = #{destHostIp} and dest_host_port=#{destHostPort}
+  </select>
+
+  <select id="getAllLocalPorts" resultType="java.lang.Integer">
+    SELECT
+    local_port
+    FROM tbl_reverse_proxy
+  </select>
+
+
+</mapper>
