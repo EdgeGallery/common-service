@@ -5,7 +5,7 @@
 
 ### 组件介绍
 #### common-service-cbb
-代码量比较小的功能统一放到common-service-cbb实现，功能相对完整、代码量比较大的功能单独建立组件，命名规则：common-service-XXX，其中XXX表示组件功能。
+代码量比较小的功能统一放到common-service-cbb实现，详情参考common-service-cbb的readme文件；功能相对完整、代码量比较大的功能请单独建立组件，命名规则：common-service-XXX，其中XXX表示组件功能。
 
 ### 参与贡献
 
