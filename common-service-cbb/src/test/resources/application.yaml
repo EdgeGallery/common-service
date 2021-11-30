@@ -47,6 +47,8 @@ proxy:
     port:
       min: 30111
       max: 30120
+  next-hop:
+    port: ${NEXT_HOP_PORT:30103}
 
 signature:
   encrypted-key-path: src/test/resources/testdata/public.p12
