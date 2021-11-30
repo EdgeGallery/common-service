@@ -13,7 +13,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 #
-FROM swr.cn-north-4.myhuaweicloud.com/eg-common/openjdk:8u201-jdk-alpine
+FROM swr.cn-north-4.myhuaweicloud.com/eg-common/openjdk:8u201-jre-alpine
 #define all environment variable here
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV TZ='Asia/Shanghai'
@@ -32,19 +32,16 @@ RUN sed -i "s|umask 022|umask 027|g" /etc/profile
 # Create the home directory for the new app user.
 RUN mkdir -p /usr/app
 RUN mkdir -p /usr/app/bin
-RUN mkdir -p /usr/app/lib
 
 # Create an app user so our program doesn't run as root.
 RUN apk update &&\
     apk add shadow &&\
     groupadd -r -g $GID $GROUP_NAME
-   # useradd -r -u $UID -g $GID -d $APP_HOME -s /sbin/nologin -c "Docker image user" $USER_NAME
-   # useradd -r -u $UID -G $GROUP_NAME,docker -d $APP_HOME -s /sbin/nologin -c "Docker image user" $USER_NAME
-RUN apk add docker
 
 RUN apk add openssh
-
-RUN useradd -r -u $UID -G $GROUP_NAME,docker -d $APP_HOME -s /sbin/nologin -c "Docker image user" $USER_NAME
+RUN  useradd -r -u $UID -g $GID -d $APP_HOME -s /sbin/nologin -c "Docker image user" $USER_NAME
+RUN groupadd docker && \
+    gpasswd -a $USER_NAME docker
 
 WORKDIR $APP_HOME
 
@@ -71,7 +68,7 @@ RUN apk add nginx &&\
 
 COPY --chown=$USER_NAME:$GROUP_NAME target/*.jar $APP_HOME/bin
 
-EXPOSE 9001
+EXPOSE 30101
 EXPOSE 30111-30120
 
 # Change to the app user.

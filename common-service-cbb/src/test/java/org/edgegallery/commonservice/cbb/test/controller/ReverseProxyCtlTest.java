@@ -14,10 +14,9 @@
 
 package org.edgegallery.commonservice.cbb.test.controller;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-
 import com.google.gson.Gson;
 import org.edgegallery.commonservice.cbb.model.ReverseProxy;
+import org.edgegallery.commonservice.cbb.test.CommonServiceCbbTests;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,8 +33,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ReverseProxyCtlTest.class)
+@SpringBootTest(classes = CommonServiceCbbTests.class)
 @AutoConfigureMockMvc
 public class ReverseProxyCtlTest {
     @Autowired
@@ -51,7 +52,7 @@ public class ReverseProxyCtlTest {
     public void testAddReverseProxySuccess() throws Exception {
         String url = "/commonservice/cbb/v1/reverseproxies";
         ReverseProxy reverseProxy = new ReverseProxy("192.168.1.1", 6080, 0,
-                "http", "192.168.1.2", 0,0,1);
+                "http", null, 0,0,1);
         ResultActions actions = mvc.perform(MockMvcRequestBuilders.post(url)
                 .with(csrf()).content(new Gson().toJson(reverseProxy))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(MockMvcResultMatchers.status().isOk());
