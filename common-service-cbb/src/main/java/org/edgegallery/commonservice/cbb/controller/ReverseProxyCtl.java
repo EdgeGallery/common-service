@@ -132,21 +132,4 @@ public class ReverseProxyCtl {
             @ApiParam(value = "destHostPort", required = true) @PathVariable("destHostPort") int destHostPort) {
         return ResponseEntity.ok(reverseProxyService.getReverseProxy(destHostIp, destHostPort));
     }
-
-    /**
-     * test
-     */
-    @ApiOperation(value = "test.", response = OperationInfoRep.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = OperationInfoRep.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = ErrorRespDto.class)
-    })
-    @RequestMapping(value = "/test", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @PreAuthorize("hasRole('DEVELOPER_TENANT') || hasRole('DEVELOPER_ADMIN')")
-    public ResponseEntity<Object> test() {
-
-
-        return ResponseEntity.ok("{\"data\": {\"code\": 200,\"msg\": null,\"data\": \"[{\\\"vncUrl\\\": \\\"http://192.168.1.156:6080/vnc_lite.html?path=%3Ftoken%3D9db78251-ca73-4a79-b070-80f135c1fe7f&amp;title=vmDownLoad_ubuntu(99b60d79-59e6-479f-a179-1a9a63458bb9)\\\"}]\"}}");
-    }
 }
