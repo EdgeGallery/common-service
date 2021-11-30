@@ -26,12 +26,12 @@ servicecomb:
     registry:
       address: ${SC_ADDRESS} #连接SC(Service Center,注册中心)的地址
   rest:
-    address: ${LISTEN_IP:0.0.0.0}:32001  #Rest通信地址
+    address: ${LISTEN_IP:0.0.0.0}:30101  #Rest通信地址
     servlet:
       urlPattern: /cse/*  #using spring mvc rest server to handle requests
 ###spring config####
 server:
-  port: 32001
+  port: 30101
   ssl:
     enabled: ${SSL_ENABLED:false}
     key-store: ${SSL_KEY_STORE_PATH:}
@@ -68,29 +68,13 @@ security:
       jwt:
         key-uri: ${AUTH_SERVER_ADDRESS:http://user-mgmt-svc:8067}/oauth/token_key
 
-client:
-  client-id: ${CLIENT_ID:}
-  client-secret: ${CLIENT_SECRET:}
-
-
-### image location config ###
-imagelocation:
-  domainname: ${IMAGE_REPO_NAME:swr.ap-southeast-1.myhuaweicloud.com}
-  project: ${IMAGE_REPO_PROJECT:commons}
-  password: ${IMAGE_REPO_PASSWORD:}
-  username: ${IMAGE_REPO_USERNAME:}
-  port: ${DOCKER_PORT:2375}
-  protocol: ${DOCKER_PROTOCOL:tcp}
-vm:
-  username: ${VNC_USERNAME:}
-  password: ${VNC_PASSWORD:}
-  port: ${VNC_PORT:22}
-
 proxy:
   server:
     port:
-      min: 30111
-      max: 30120
+      min: ${MIN_PROXY_PORT:30111}
+      max: ${MAX_PROXY_PORT:30120}
+  next-hop:
+    port: ${NEXT_HOP_PORT:30103}
 
 signature:
   encrypted-key-path: /usr/app/keys/public.p12

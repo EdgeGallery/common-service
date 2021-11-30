@@ -66,8 +66,8 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
     @Value("${proxy.server.port.max:}")
     private int maxReverseProxyPort;
 
-    // @Value("${server.port:}")
-    private int serverPort;
+    @Value("${proxy.next-hop.port:}")
+    private int nextHopPort;
 
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -98,7 +98,7 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
         if (StringUtils.isNotBlank(nextHopIp)) {
             String url = new StringBuffer(reverseProxy.getNextHopProtocol()).append("://")
                     .append(reverseProxy.getNextHopIp()).append(":")
-                    .append(serverPort).append(Consts.RP_BASE_URL).toString();
+                    .append(nextHopPort).append(Consts.RP_BASE_URL).toString();
             ReverseProxy reqBody = reverseProxy.clone();
             reqBody.setHopIndex(MIDDLE_HOP_INDEX);
             reqBody.setNextHopIp(null);
@@ -136,7 +136,7 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
         String nextHopIp = reverseProxy.getNextHopIp();
         if (reverseProxy.getHopIndex() == HEAD_HOP_INDEX && StringUtils.isNotBlank(nextHopIp)) {
             String url = new StringBuffer(reverseProxy.getNextHopProtocol()).append("://")
-                    .append(nextHopIp).append(":").append(serverPort).append(Consts.RP_BASE_URL)
+                    .append(nextHopIp).append(":").append(nextHopPort).append(Consts.RP_BASE_URL)
                     .append("/dest-host-ip/").append(reverseProxy.getDestHostIp()).append("/dest-host-port/")
                     .append(reverseProxy.getDestHostPort()).toString();
             sendHttpRequest(url, token, HttpMethod.DELETE, null);
