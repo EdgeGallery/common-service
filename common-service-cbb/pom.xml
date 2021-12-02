@@ -775,7 +775,7 @@
 
     <build>
         <!-- jar name -->
-        <finalName>mec-developer-platform</finalName>
+        <finalName>service-common-cbb</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
