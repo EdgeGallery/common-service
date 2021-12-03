@@ -46,7 +46,7 @@ proxy:
   server:
     port:
       min: 30111
-      max: 30120
+      max: 30114
   next-hop:
     port: ${NEXT_HOP_PORT:30103}
 

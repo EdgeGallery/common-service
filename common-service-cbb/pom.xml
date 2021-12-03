@@ -775,7 +775,7 @@
 
     <build>
         <!-- jar name -->
-        <finalName>service-common-cbb</finalName>
+        <finalName>common-service-cbb</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
