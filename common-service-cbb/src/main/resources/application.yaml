@@ -79,3 +79,6 @@ proxy:
 signature:
   encrypted-key-path: /usr/app/keys/public.p12
   key-password: ${EDGE_CERT_PASSWORD:Test12345_}
+
+encrypt:
+  key-component: ${ENCRYPT_KEY_COMPONENT:edgegallery}

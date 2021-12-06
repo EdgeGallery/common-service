@@ -16,6 +16,12 @@
 
 package org.edgegallery.commonservice.cbb.util.security;
 
+import java.io.IOException;
+import java.util.Map;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.edgegallery.commonservice.cbb.util.Consts;
 import org.slf4j.Logger;
@@ -32,13 +38,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Map;
-
 @Component
 @Import({ResourceServerTokenServicesConfiguration.class})
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -46,14 +45,17 @@ public class AccessTokenFilter extends OncePerRequestFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccessTokenFilter.class);
 
+    private static final String[] passUrls = {
+        "/health", "/webssh", "/commonservice/cbb/v1/crypto/encrypt", "/commonservice/cbb/v1/crypto/decrypt"
+    };
+
     @Autowired
     TokenStore jwtTokenStore;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
-        if (request.getRequestURI() == null || !(request.getRequestURI().equals("/health") || request.getRequestURI()
-            .equals("/webssh"))) {
+        if (request.getRequestURI() == null || !(StringUtils.equalsAnyIgnoreCase(request.getRequestURI(), passUrls))) {
             String accessTokenStr = request.getHeader(Consts.ACCESS_TOKEN_STR);
             if (StringUtils.isEmpty(accessTokenStr)) {
                 LOGGER.error("Access token is empty");
