@@ -20,6 +20,8 @@ import org.edgegallery.commonservice.cbb.model.ReverseProxy;
 
 public interface ReverseProxyService {
     ReverseProxy addReverseProxy(ReverseProxy reverseProxy, String token);
+
     void deleteReverseProxy(String destHostIp, int destHostPort, String token);
+
     ReverseProxy getReverseProxy(String destHostIp, int destHostPort);
 }
