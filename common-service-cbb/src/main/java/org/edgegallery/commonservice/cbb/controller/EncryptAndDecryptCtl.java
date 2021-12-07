@@ -19,9 +19,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import javax.validation.constraints.NotNull;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.edgegallery.commonservice.cbb.model.EncryptAndDecryptDto;
 import org.edgegallery.commonservice.cbb.model.restful.ErrorRespDto;
@@ -29,12 +26,13 @@ import org.edgegallery.commonservice.cbb.service.EncryptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.constraints.NotNull;
 
 @Controller
 @RestSchema(schemaId = "crypto")
@@ -69,7 +67,7 @@ public class EncryptAndDecryptCtl {
         @ApiResponse(code = 200, message = "OK", response = EncryptAndDecryptDto.class),
         @ApiResponse(code = 400, message = "Bad Request", response = ErrorRespDto.class)
     })
-    @RequestMapping(value = "decrypt", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/decrypt", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<EncryptAndDecryptDto> decrypt(
         @NotNull @ApiParam(value = "EncryptAndDecryptDto", required = true) @RequestBody
             EncryptAndDecryptDto encryptAndDecryptDto) {
