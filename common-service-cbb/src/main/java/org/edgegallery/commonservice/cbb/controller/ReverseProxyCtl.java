@@ -15,7 +15,6 @@
  */
 package org.edgegallery.commonservice.cbb.controller;
 
-import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -46,8 +45,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 
 @Controller
 @RestSchema(schemaId = "ReverseProxies")

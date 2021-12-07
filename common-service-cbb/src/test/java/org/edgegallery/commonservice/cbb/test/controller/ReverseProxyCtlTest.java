@@ -17,7 +17,6 @@ package org.edgegallery.commonservice.cbb.test.controller;
 import com.google.gson.Gson;
 import org.edgegallery.commonservice.cbb.model.ReverseProxy;
 import org.edgegallery.commonservice.cbb.service.ReverseProxyService;
-import org.edgegallery.commonservice.cbb.service.impl.ReverseProxyServiceImpl;
 import org.edgegallery.commonservice.cbb.test.CommonServiceCbbTests;
 import org.junit.Assert;
 import org.junit.Before;
