@@ -40,7 +40,6 @@ import java.security.cert.X509Certificate;
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class}, scanBasePackages = "org.edgegallery.commonservice.cbb")
 @MapperScan(basePackages = {"org.edgegallery.commonservice.cbb.mapper"})
 @EnableScheduling
-@EnableServiceComb
 public class CommonServiceCbbApplication {
 
     /**

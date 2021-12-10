@@ -14,21 +14,6 @@
 #    limitations under the License.
 #
 
-###servicecomb config####
-servicecomb-config-order: 1
-APPLICATION_ID: edgegallery  #应用名
-service_description:
-  name: commonservice-cbb  #微服务名
-  version: 1.0.0   #微服务版本
-  environment: development
-servicecomb:
-  service:
-    registry:
-      address: ${SC_ADDRESS} #连接SC(Service Center,注册中心)的地址
-  rest:
-    address: ${LISTEN_IP:0.0.0.0}:30101  #Rest通信地址
-    servlet:
-      urlPattern: /cse/*  #using spring mvc rest server to handle requests
 ###spring config####
 server:
   port: 30101
