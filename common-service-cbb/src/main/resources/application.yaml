@@ -59,7 +59,7 @@ proxy:
       min: ${MIN_PROXY_PORT:30111}
       max: ${MAX_PROXY_PORT:30120}
   next-hop:
-    port: ${NEXT_HOP_PORT:30103}
+    port: ${NEXT_HOP_PORT:30210}
 
 signature:
   encrypted-key-path: /usr/app/keys/public.p12
