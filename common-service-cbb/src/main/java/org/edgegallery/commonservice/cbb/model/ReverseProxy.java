@@ -45,12 +45,12 @@ public class ReverseProxy implements Cloneable {
 
     @Override
     public ReverseProxy clone() {
-        ReverseProxy proxy = null;
         try {
-            proxy = (ReverseProxy) super.clone();
+            return (ReverseProxy) super.clone();
         } catch (CloneNotSupportedException e) {
             LOGGER.error("failed to clone reverse proxy", e);
+            return new ReverseProxy(destHostIp, destHostPort, localPort, nextHopProtocol,
+                    nextHopIp, nextHopPort, linkNumber, hopIndex);
         }
-        return proxy;
     }
 }
