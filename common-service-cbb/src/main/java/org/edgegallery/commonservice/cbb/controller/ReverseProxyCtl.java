@@ -107,7 +107,7 @@ public class ReverseProxyCtl {
 
         String accessToken = request.getHeader(Consts.ACCESS_TOKEN_STR);
         reverseProxyService.deleteReverseProxy(destHostIp, destHostPort, accessToken);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok("");
     }
 
     /**

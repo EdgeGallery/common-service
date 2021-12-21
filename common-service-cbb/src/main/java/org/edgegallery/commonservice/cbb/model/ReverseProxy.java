@@ -22,6 +22,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.edgegallery.commonservice.cbb.service.ReverseProxyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,7 +32,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReverseProxy implements Cloneable{
+public class ReverseProxy implements Cloneable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReverseProxyService.class);
     private String destHostIp;
     private int destHostPort;
     private int localPort;
@@ -39,8 +43,14 @@ public class ReverseProxy implements Cloneable{
     private int linkNumber;
     private int hopIndex;
 
+    @Override
     public ReverseProxy clone() {
-        return new ReverseProxy(destHostIp, destHostPort, localPort,
-                nextHopProtocol, nextHopIp, nextHopPort, linkNumber, hopIndex);
+        try {
+            return (ReverseProxy) super.clone();
+        } catch (CloneNotSupportedException e) {
+            LOGGER.error("failed to clone reverse proxy", e);
+            return new ReverseProxy(destHostIp, destHostPort, localPort, nextHopProtocol,
+                    nextHopIp, nextHopPort, linkNumber, hopIndex);
+        }
     }
 }
