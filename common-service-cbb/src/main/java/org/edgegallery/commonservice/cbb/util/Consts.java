@@ -21,7 +21,8 @@ public class Consts {
 
     public static final int MAX_OS_PORT = 65535;
 
-    public static final String REGEX_IP = "([1-9]\\d?|1\\d{2}|2[0-4]\\d|25[0-5])(\\.([1-9]\\d?|1\\d{2}|2[0-4]\\d|25[0-5])){3}";
+    public static final String REGEX_IP = "([1-9]\\d?|1\\d{2}|2[0-4]\\d|25[0-5])" +
+            "(\\.([1-9]\\d?|1\\d{2}|2[0-4]\\d|25[0-5])){3}";
 
     public static final String REGEX_UUID = "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}";
 
