@@ -26,13 +26,4 @@ public class Consts {
     public static final String REGEX_UUID = "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}";
 
     public static final String RP_BASE_URL = "/commonservice/cbb/v1/reverseproxies";
-
-    public static void main(String[] args) {
-        System.out.println("192.168.1.1".matches(REGEX_IP));
-        System.out.println("20.1.1.1".matches(REGEX_IP));
-        System.out.println("26.25.25.55".matches(REGEX_IP));
-        System.out.println("255.255.255.255.1".matches(REGEX_IP));
-        System.out.println("10".matches("[1-9]\\d?"));
-        System.out.println(".168.1.1".matches("(\\.([1-9]\\d?|1\\d{2}|2[0-4]\\d|25[0-5])){3}"));
-    }
 }

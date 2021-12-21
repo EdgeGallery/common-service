@@ -17,7 +17,6 @@
 package org.edgegallery.commonservice.cbb;
 
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.servicecomb.springboot2.starter.EnableServiceComb;
 import org.edgegallery.commonservice.cbb.util.SpringContextUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
