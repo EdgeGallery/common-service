@@ -23,8 +23,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.edgegallery.commonservice.cbb.service.ReverseProxyService;
+import org.edgegallery.commonservice.cbb.util.Consts;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,7 +40,16 @@ import org.slf4j.LoggerFactory;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReverseProxy implements Cloneable {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReverseProxyService.class);
+
+    @NotBlank
+    @Pattern(regexp = Consts.REGEX_PROTOCOL, message = "invalid dest host protocol")
+    private String destHostProtocol;
+
+    @NotBlank
+    @Pattern(regexp = Consts.REGEX_IP, message = "invalid dest host ip")
     private String destHostIp;
+
+    @Range(min = 1, max = Consts.MAX_OS_PORT)
     private int destHostPort;
     private int localPort;
     private String nextHopProtocol;
@@ -49,7 +64,7 @@ public class ReverseProxy implements Cloneable {
             return (ReverseProxy) super.clone();
         } catch (CloneNotSupportedException e) {
             LOGGER.error("failed to clone reverse proxy", e);
-            return new ReverseProxy(destHostIp, destHostPort, localPort, nextHopProtocol,
+            return new ReverseProxy(destHostProtocol, destHostIp, destHostPort, localPort, nextHopProtocol,
                     nextHopIp, nextHopPort, linkNumber, hopIndex);
         }
     }
