@@ -20,6 +20,7 @@
   <resultMap id="ReverseProxyMap" type="org.edgegallery.commonservice.cbb.model.ReverseProxy">
     <result property="destHostIp" column="dest_host_ip"/>
     <result property="destHostPort" column="dest_host_port"/>
+    <result property="destHostProtocol" column="dest_host_protocol"/>
     <result property="localPort" column="local_port"/>
     <result property="nextHopProtocol" column="next_hop_protocol"/>
     <result property="nextHopIp" column="next_hop_ip"/>
@@ -29,10 +30,10 @@
   </resultMap>
 
   <insert id="createReverseProxy">
-    insert into tbl_reverse_proxy (dest_host_ip, dest_host_port, local_port, next_hop_protocol,
+    insert into tbl_reverse_proxy (dest_host_ip, dest_host_port, dest_host_protocol, local_port, next_hop_protocol,
                                    next_hop_ip, next_hop_port, link_number, hop_index)
     values
-    (#{destHostIp}, #{destHostPort}, #{localPort}, #{nextHopProtocol},
+    (#{destHostIp}, #{destHostPort}, #{destHostProtocol}, #{localPort}, #{nextHopProtocol},
               #{nextHopIp}, #{nextHopPort}, #{linkNumber}, #{hopIndex})
   </insert>
 
@@ -47,8 +48,8 @@
 
   <select id="getReverseProxy" resultMap="ReverseProxyMap">
     SELECT
-    dest_host_ip, dest_host_port, local_port, next_hop_protocol, next_hop_ip, next_hop_port, link_number, hop_index
-    FROM tbl_reverse_proxy
+    dest_host_ip, dest_host_port, dest_host_protocol, local_port, next_hop_protocol, next_hop_ip,
+    next_hop_port, link_number, hop_index FROM tbl_reverse_proxy
     WHERE dest_host_ip = #{destHostIp} and dest_host_port=#{destHostPort}
   </select>
 

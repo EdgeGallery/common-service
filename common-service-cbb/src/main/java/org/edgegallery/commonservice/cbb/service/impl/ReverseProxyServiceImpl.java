@@ -52,7 +52,8 @@ import java.util.Set;
 @Setter
 public class ReverseProxyServiceImpl implements ReverseProxyService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReverseProxyService.class);
-    private static final String BASE_CONFIG_FILE = "/reverse_proxy/nginx.conf";
+    private static final String NGINX_HTTP_CONFIG_FILE = "/reverse_proxy/nginx_http.conf";
+    private static final String NGINX_HTTPS_CONFIG_FILE = "/reverse_proxy/nginx_https.conf";
     private static final String NGINX_CONFIG_FILE_SUFFIX = ".conf";
     private static final String NGINX_CONFIG_DIR = "/etc/nginx/conf.d/";
     private static final int HEAD_HOP_INDEX = 1;
@@ -111,9 +112,11 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
             String resp = sendHttpRequest(url, token, HttpMethod.POST, reqBody);
             ReverseProxy hopReverseProxy = gson.fromJson(resp, ReverseProxy.class);
             reverseProxy.setNextHopPort(hopReverseProxy.getLocalPort());
-            addReverseProxyConfigFile(proxyHostPort, reverseProxy.getNextHopIp(), reverseProxy.getNextHopPort());
+            addReverseProxyConfigFile(reverseProxy.getDestHostProtocol(), proxyHostPort,
+                    reverseProxy.getNextHopIp(), reverseProxy.getNextHopPort());
         } else {
-            addReverseProxyConfigFile(proxyHostPort, reverseProxy.getDestHostIp(), reverseProxy.getDestHostPort());
+            addReverseProxyConfigFile(reverseProxy.getDestHostProtocol(), proxyHostPort,
+                    reverseProxy.getDestHostIp(), reverseProxy.getDestHostPort());
         }
         reloadNginxConfig();
         reverseProxy.setLocalPort(proxyHostPort);
@@ -213,12 +216,14 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
         throw new CommonServiceCbException("there is no usable proxy port left.");
     }
 
-    private void addReverseProxyConfigFile(int proxyPort, String hostIp, int hostConsolePort){
+    private void addReverseProxyConfigFile(String protocol, int proxyPort, String hostIp, int hostConsolePort){
         try {
-            InputStream is = ReverseProxyServiceImpl.class.getResourceAsStream(BASE_CONFIG_FILE);
+            InputStream is = ReverseProxyServiceImpl.class.getResourceAsStream(
+                    Consts.HTTPS_PROTOCOL.equals(protocol) ? NGINX_HTTPS_CONFIG_FILE : NGINX_HTTP_CONFIG_FILE);
             Charset charset = Charset.forName(Consts.DEFAULT_ENCODING);
             String content = StreamUtils.copyToString(is, charset);
-            String url = new StringBuffer("http://").append(hostIp).append(":").append(hostConsolePort).toString();
+            String url = new StringBuffer(protocol).append("://").append(hostIp)
+                    .append(":").append(hostConsolePort).toString();
             String nginxConfig = String.format(content, proxyPort, url);
             File file = new File(NGINX_CONFIG_DIR + proxyPort + NGINX_CONFIG_FILE_SUFFIX);
             FileUtils.writeStringToFile(file, nginxConfig, charset);
