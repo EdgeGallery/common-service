@@ -69,20 +69,7 @@ public class ReverseProxyCtl {
     @PreAuthorize("hasRole('DEVELOPER_TENANT') || hasRole('DEVELOPER_ADMIN')")
     public ResponseEntity<Object> addReverseProxy(
             @NotNull @ApiParam(value = "ReverseProxy", required = true)
-            @RequestBody ReverseProxy reverseProxy, HttpServletRequest request) {
-        String ip = reverseProxy.getDestHostIp();
-        if (ip == null || !ip.matches(Consts.REGEX_IP)) {
-            LOGGER.error("invalid ip address : {}", ip);
-            return new ResponseEntity<>(new ErrorRespDto(1, "invalid ip address", ip),
-                    HttpStatus.BAD_REQUEST);
-        }
-
-        int port = reverseProxy.getDestHostPort();
-        if (port < 0 || port > Consts.MAX_OS_PORT) {
-            LOGGER.error("invalid port : {}", port);
-            return new ResponseEntity<>(new ErrorRespDto(1, "invalid port", String.valueOf(port)),
-                    HttpStatus.BAD_REQUEST);
-        }
+            @Validated @RequestBody ReverseProxy reverseProxy, HttpServletRequest request) {
         String accessToken = request.getHeader(Consts.ACCESS_TOKEN_STR);
         return ResponseEntity.ok(reverseProxyService.addReverseProxy(reverseProxy, accessToken));
     }

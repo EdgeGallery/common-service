@@ -24,6 +24,10 @@ public class Consts {
     public static final String REGEX_IP = "([1-9]\\d?|1\\d{2}|2[0-4]\\d|25[0-5])" +
             "(\\.([1-9]\\d?|1\\d{2}|2[0-4]\\d|25[0-5])){3}";
 
+    public static final String REGEX_PROTOCOL = "https?";
+
+    public static final String HTTPS_PROTOCOL = "https";
+
     public static final String REGEX_UUID = "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}";
 
     public static final String RP_BASE_URL = "/commonservice/cbb/v1/reverseproxies";

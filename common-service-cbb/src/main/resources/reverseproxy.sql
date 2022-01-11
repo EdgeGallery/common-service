@@ -4,6 +4,7 @@
     CREATE TABLE IF NOT EXISTS "tbl_reverse_proxy" (
     "dest_host_ip" varchar(64) NOT NULL,
     "dest_host_port" int4 NOT NULL,
+    "dest_host_protocol" varchar(8) NOT NULL,
     "local_port" int4 NOT NULL,
     "next_hop_protocol" varchar(8) NULL,
     "next_hop_ip" varchar(64) NULL,

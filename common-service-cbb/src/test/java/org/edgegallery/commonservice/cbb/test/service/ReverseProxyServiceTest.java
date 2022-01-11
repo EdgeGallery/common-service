@@ -76,22 +76,22 @@ public class ReverseProxyServiceTest{
 
     @Test
     public void testAddReverseProxySuccess1() throws Exception {
-        ReverseProxy reverseProxy = new ReverseProxy("192.168.1.100", 6080, 0,
+        ReverseProxy reverseProxy = new ReverseProxy("https", "192.168.1.100", 6080, 0,
                 "http", null, 0,0,1);
         ReverseProxy result = reverseProxyService.addReverseProxy(reverseProxy, "token");
         Assert.assertEquals(result.getLocalPort(), 30111);
-        reverseProxy = new ReverseProxy("192.168.1.102", 6080, 0,
+        reverseProxy = new ReverseProxy("https", "192.168.1.102", 6080, 0,
                 "http", null, 0,0,1);
         result = reverseProxyService.addReverseProxy(reverseProxy, "token");
         Assert.assertEquals(result.getLocalPort(), 30113);
-        reverseProxy = new ReverseProxy("192.168.1.103", 6080, 0,
+        reverseProxy = new ReverseProxy("https", "192.168.1.103", 6080, 0,
                 "http", "192.168.1.110", 6080,0,2);
         result = reverseProxyService.addReverseProxy(reverseProxy, "token");
         Assert.assertEquals(result.getLocalPort(), 30114);
         reverseProxyService.addReverseProxy(reverseProxy, "token");
         reverseProxyService.deleteReverseProxy("192.168.1.103", 6080, "token");
 
-        reverseProxy = new ReverseProxy("192.168.1.105", 6080, 0,
+        reverseProxy = new ReverseProxy("https", "192.168.1.105", 6080, 0,
                 "http", "192.168.1.110", 6080,0,1);
         try {
             reverseProxyService.addReverseProxy(reverseProxy, "token");

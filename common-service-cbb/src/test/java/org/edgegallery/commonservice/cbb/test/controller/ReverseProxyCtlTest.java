@@ -57,7 +57,7 @@ public class ReverseProxyCtlTest {
     @WithMockUser(roles = "DEVELOPER_ADMIN")
     public void testAddReverseProxySuccess() throws Exception {
         String url = "/commonservice/cbb/v1/reverseproxies";
-        ReverseProxy reverseProxy = new ReverseProxy("192.168.1.1", 6080, 0,
+        ReverseProxy reverseProxy = new ReverseProxy("https", "192.168.1.1", 6080, 0,
                 "http", null, 0,0,1);
         Mockito.when(reverseProxyService
                 .addReverseProxy(Mockito.any(), Mockito.anyString()))
@@ -72,7 +72,7 @@ public class ReverseProxyCtlTest {
     @WithMockUser(roles = "DEVELOPER_ADMIN")
     public void testAddReverseProxyInvalidIp() throws Exception {
         String url = "/commonservice/cbb/v1/reverseproxies";
-        ReverseProxy reverseProxy = new ReverseProxy("192.168.1.1000", 6080, 0,
+        ReverseProxy reverseProxy = new ReverseProxy("https", "192.168.1.1000", 6080, 0,
                 "http", null, 0,0,1);
         ResultActions actions = mvc.perform(MockMvcRequestBuilders.post(url)
                 .with(csrf()).content(new Gson().toJson(reverseProxy))
@@ -84,7 +84,7 @@ public class ReverseProxyCtlTest {
     @WithMockUser(roles = "DEVELOPER_ADMIN")
     public void testAddReverseProxyInvalidPort() throws Exception {
         String url = "/commonservice/cbb/v1/reverseproxies";
-        ReverseProxy reverseProxy = new ReverseProxy("192.168.1.1", 70800, 0,
+        ReverseProxy reverseProxy = new ReverseProxy("https", "192.168.1.1", 70800, 0,
                 "http", null, 0,0,1);
         ResultActions actions = mvc.perform(MockMvcRequestBuilders.post(url)
                 .with(csrf()).content(new Gson().toJson(reverseProxy))
