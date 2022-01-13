@@ -22,7 +22,7 @@ import org.apache.commons.exec.ExecuteWatchdog;
 import org.apache.commons.exec.Executor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.edgegallery.commonservice.cbb.exception.CommonServiceCbException;
+import org.edgegallery.commonservice.cbb.exception.CommonServiceCbbException;
 import org.edgegallery.commonservice.cbb.mapper.ReverseProxyMapper;
 import org.edgegallery.commonservice.cbb.model.ReverseProxy;
 import org.edgegallery.commonservice.cbb.service.ReverseProxyService;
@@ -128,7 +128,7 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
                     reverseProxy.toString());
             deleteReverseProxyConfigFile(proxyHostPort);
             reloadNginxConfig();
-            throw new CommonServiceCbException("failed to insert reverse proxy data");
+            throw new CommonServiceCbbException("failed to insert reverse proxy data");
         }
         return reverseProxy;
     }
@@ -182,7 +182,7 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
             LOGGER.error("Failed to send http request", e);
         }
         LOGGER.error("Failed to send http request, url is : {}, method is : {}", url, method);
-        throw new CommonServiceCbException("Failed to send http request");
+        throw new CommonServiceCbbException("Failed to send http request");
     }
 
     private void reloadNginxConfig() {
@@ -196,11 +196,11 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
             int retCode = executor.execute(cmdLine);
             if (retCode != 0) {
                 LOGGER.error("failed to reload nginx config, return code is : {}", retCode);
-                throw new CommonServiceCbException("failed to reload nginx config");
+                throw new CommonServiceCbbException("failed to reload nginx config");
             }
         } catch (IOException e) {
             LOGGER.error("failed to reload nginx config.", e);
-            throw new CommonServiceCbException("failed to reload nginx config", e);
+            throw new CommonServiceCbbException("failed to reload nginx config", e);
         }
     }
 
@@ -213,7 +213,7 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
             }
         }
         LOGGER.error("no usable proxy port left.");
-        throw new CommonServiceCbException("there is no usable proxy port left.");
+        throw new CommonServiceCbbException("there is no usable proxy port left.");
     }
 
     private void addReverseProxyConfigFile(String protocol, int proxyPort, String hostIp, int hostConsolePort){
@@ -230,7 +230,7 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
             LOGGER.info("reverse proxy config file {} is created.", file.getName());
         } catch(IOException e) {
             LOGGER.error("failed to make reverse proxy conf", e);
-            throw new CommonServiceCbException("failed to make reverse proxy conf.");
+            throw new CommonServiceCbbException("failed to make reverse proxy conf.");
         }
     }
 
@@ -238,7 +238,7 @@ public class ReverseProxyServiceImpl implements ReverseProxyService {
         File file = new File(NGINX_CONFIG_DIR + proxyPort + NGINX_CONFIG_FILE_SUFFIX);
         if (file.exists() && !file.delete()) {
             LOGGER.error("failed to delete reverse config file {}.", file.getName());
-            throw new CommonServiceCbException("failed to delete config file.");
+            throw new CommonServiceCbbException("failed to delete config file.");
         }
         LOGGER.info("reverse proxy file {} is deleted.", file.getName());
     }

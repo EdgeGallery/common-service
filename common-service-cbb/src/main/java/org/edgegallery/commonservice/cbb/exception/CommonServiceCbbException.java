@@ -16,26 +16,26 @@
 
 package org.edgegallery.commonservice.cbb.exception;
 
-public class CommonServiceCbException extends RuntimeException{
-    public CommonServiceCbException() {
+public class CommonServiceCbbException extends RuntimeException{
+    public CommonServiceCbbException() {
         super();
     }
 
-    public CommonServiceCbException(String message) {
+    public CommonServiceCbbException(String message) {
         super(message);
     }
 
-    public CommonServiceCbException(String message, Throwable cause) {
+    public CommonServiceCbbException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public CommonServiceCbException(Throwable cause) {
+    public CommonServiceCbbException(Throwable cause) {
         super(cause);
     }
 
-    public CommonServiceCbException(String message, Throwable cause,
-                                    boolean enableSuppression,
-                                    boolean writableStackTrace) {
+    public CommonServiceCbbException(String message, Throwable cause,
+                                     boolean enableSuppression,
+                                     boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
