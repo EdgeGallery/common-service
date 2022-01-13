@@ -18,7 +18,8 @@ import mockit.Mock;
 import mockit.MockUp;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
-import org.edgegallery.commonservice.cbb.exception.CommonServiceCbException;
+import org.edgegallery.commonservice.cbb.exception.CommonServiceCbbException;
+import org.edgegallery.commonservice.cbb.mapper.ReverseProxyMapper;
 import org.edgegallery.commonservice.cbb.model.ReverseProxy;
 import org.edgegallery.commonservice.cbb.service.impl.ReverseProxyServiceImpl;
 import org.edgegallery.commonservice.cbb.test.CommonServiceCbbTests;
@@ -35,11 +36,14 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.HashSet;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CommonServiceCbbTests.class)
@@ -47,6 +51,33 @@ import java.nio.charset.Charset;
 public class ReverseProxyServiceTest{
     @Autowired
     private ReverseProxyServiceImpl reverseProxyService;
+
+    private ReverseProxyMapper mockMapper = new ReverseProxyMapper() {
+        @Override
+        public int createReverseProxy(ReverseProxy reverseProxy) {
+            return -1;
+        }
+
+        @Override
+        public int deleteReverseProxy(String destHostIp, int destHostPort) {
+            return -1;
+        }
+
+        @Override
+        public int modifyLinkNumber(ReverseProxy reverseProxy) {
+            return -1;
+        }
+
+        @Override
+        public ReverseProxy getReverseProxy(String destHostIp, int destHostPort) {
+            return null;
+        }
+
+        @Override
+        public Set<Integer> getAllLocalPorts() {
+            return new HashSet<>();
+        }
+    };
 
     @Before
     public void setUp() throws Exception {
@@ -96,7 +127,85 @@ public class ReverseProxyServiceTest{
         try {
             reverseProxyService.addReverseProxy(reverseProxy, "token");
         }catch (Exception e) {
-            Assert.assertEquals(e.getClass(), CommonServiceCbException.class);
+            Assert.assertEquals(e.getClass(), CommonServiceCbbException.class);
+        }
+    }
+
+    @Test
+    public void testAddReverseProxyFail1() throws Exception {
+        reverseProxyService.setReverseProxyMapper(mockMapper);
+        ReverseProxy reverseProxy = new ReverseProxy("https", "192.168.1.105", 6080, 0,
+                "https", "192.168.1.110", 6080,0,1);
+        try {
+            reverseProxyService.addReverseProxy(reverseProxy, "token");
+        }catch (Exception e) {
+            Assert.assertEquals(e.getClass(), CommonServiceCbbException.class);
+        }
+    }
+
+    @Test
+    public void testAddReverseProxyFail2() throws Exception {
+        RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
+        String body = "{\"destHostIp\":\"192.168.1.101\",\"destHostPort\":6080,\"localPort\":30111," +
+                "\"nextHopProtocol\":\"http\",\"nextHopIp\":\"192.168.1.2\",\"nextHopPort\":30111," +
+                "\"linkNumber\":1,\"hopIndex\":1}";
+        ResponseEntity<String> response = new ResponseEntity<>(body, HttpStatus.OK);
+        Mockito.when((restTemplate.exchange(Mockito.anyString(), Mockito.any(),
+                new HttpEntity<>(Mockito.any(), Mockito.any()), String.class)))
+                .thenThrow(new RestClientException("err"));
+        reverseProxyService.setRestTemplate(restTemplate);
+        ReverseProxy reverseProxy = new ReverseProxy("https", "192.168.1.105", 6080, 0,
+                "https", "192.168.1.110", 6080,0,1);
+        try {
+            reverseProxyService.addReverseProxy(reverseProxy, "token");
+        }catch (Exception e) {
+            Assert.assertEquals(e.getClass(), CommonServiceCbbException.class);
+        }
+    }
+
+    @Test
+    public void testAddReverseProxyFail3() throws Exception {
+        DefaultExecutor executor = Mockito.mock(DefaultExecutor.class);
+        Mockito.when(executor.execute(Mockito.any())).thenThrow(new IOException("err"));
+        reverseProxyService.setExecutor(executor);
+        ReverseProxy reverseProxy = new ReverseProxy("https", "192.168.1.105", 6080, 0,
+                "https", "", 6080,0,1);
+        try {
+            reverseProxyService.addReverseProxy(reverseProxy, "token");
+        }catch (Exception e) {
+            Assert.assertEquals(e.getClass(), CommonServiceCbbException.class);
+        }
+    }
+
+    @Test
+    public void testAddReverseProxyFail4() throws Exception {
+        DefaultExecutor executor = Mockito.mock(DefaultExecutor.class);
+        Mockito.when(executor.execute(Mockito.any())).thenReturn(-1);
+        reverseProxyService.setExecutor(executor);
+        ReverseProxy reverseProxy = new ReverseProxy("https", "192.168.1.105", 6080, 0,
+                "https", "", 6080,0,1);
+        try {
+            reverseProxyService.addReverseProxy(reverseProxy, "token");
+        }catch (Exception e) {
+            Assert.assertEquals(e.getClass(), CommonServiceCbbException.class);
+        }
+    }
+
+    @Test
+    public void testAddReverseProxyFail5() throws Exception {
+        new MockUp<FileUtils>() {
+            @Mock
+            public void writeStringToFile(final File file, final String data, final Charset encoding)
+                    throws IOException {
+                throw new IOException("err");
+            }
+        };
+        ReverseProxy reverseProxy = new ReverseProxy("https", "192.168.1.105", 6080, 0,
+                "https", "", 6080,0,1);
+        try {
+            reverseProxyService.addReverseProxy(reverseProxy, "token");
+        }catch (Exception e) {
+            Assert.assertEquals(e.getClass(), CommonServiceCbbException.class);
         }
     }
 
