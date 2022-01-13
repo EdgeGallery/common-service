@@ -29,7 +29,7 @@ import java.util.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.io.Resources;
-import org.edgegallery.commonservice.cbb.exception.CommonServiceCbException;
+import org.edgegallery.commonservice.cbb.exception.CommonServiceCbbException;
 import org.edgegallery.commonservice.cbb.model.EncryptAndDecryptDto;
 import org.edgegallery.commonservice.cbb.service.EncryptService;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,7 +58,7 @@ public class EncryptServiceImpl implements EncryptService {
             return dto;
         } catch (GeneralSecurityException | IOException e) {
             e.printStackTrace();
-            throw new CommonServiceCbException(e.getMessage());
+            throw new CommonServiceCbbException(e.getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ public class EncryptServiceImpl implements EncryptService {
             return dto;
         } catch (GeneralSecurityException | IOException e) {
             e.printStackTrace();
-            throw new CommonServiceCbException(e.getMessage());
+            throw new CommonServiceCbbException(e.getMessage());
         }
     }
 

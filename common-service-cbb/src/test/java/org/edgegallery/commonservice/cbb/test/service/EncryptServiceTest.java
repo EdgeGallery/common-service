@@ -14,7 +14,7 @@
 
 package org.edgegallery.commonservice.cbb.test.service;
 
-import org.edgegallery.commonservice.cbb.exception.CommonServiceCbException;
+import org.edgegallery.commonservice.cbb.exception.CommonServiceCbbException;
 import org.edgegallery.commonservice.cbb.model.EncryptAndDecryptDto;
 import org.edgegallery.commonservice.cbb.service.EncryptService;
 import org.edgegallery.commonservice.cbb.service.impl.EncryptServiceImpl;
@@ -61,7 +61,7 @@ public class EncryptServiceTest {
         Assert.assertEquals("test123", dto.getData().get(0).getPlainText());
     }
 
-    @Test(expected = CommonServiceCbException.class)
+    @Test(expected = CommonServiceCbbException.class)
     public void should_failed_when_decrypt_with_different_associatedData() {
         EncryptAndDecryptDto dto = new EncryptAndDecryptDto();
         EncryptAndDecryptDto.Data data = new EncryptAndDecryptDto.Data();

@@ -10,8 +10,8 @@ public class UserTest {
         User u1 = new User("userId", "userName");
         Assert.assertEquals("userId", u1.getUserId());
         User u2 = new User("userId", "userName", "userAuth");
-        Assert.assertEquals("userName", u1.getUserName());
+        Assert.assertEquals("userName", u2.getUserName());
         User u3 = new User("userId", "userName", "userAuth", "token");
-        Assert.assertEquals("token", u1.getToken());
+        Assert.assertEquals("token", u3.getToken());
     }
 }

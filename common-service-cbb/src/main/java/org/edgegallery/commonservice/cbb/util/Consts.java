@@ -22,7 +22,7 @@ public class Consts {
     public static final int MAX_OS_PORT = 65535;
 
     public static final String REGEX_IP = "([1-9]\\d?|1\\d{2}|2[0-4]\\d|25[0-5])" +
-            "(\\.([1-9]\\d?|1\\d{2}|2[0-4]\\d|25[0-5])){3}";
+            "(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}";
 
     public static final String REGEX_PROTOCOL = "https?";
 
