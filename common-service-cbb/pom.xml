@@ -786,6 +786,11 @@
             <version>2.4.7</version>
         </dependency>
         <dependency>
+            <artifactId>netty-buffer</artifactId>
+            <groupId>io.netty</groupId>
+            <version>4.1.72.Final</version>
+        </dependency>
+        <dependency>
             <artifactId>netty-codec</artifactId>
             <groupId>io.netty</groupId>
             <version>4.1.72.Final</version>
