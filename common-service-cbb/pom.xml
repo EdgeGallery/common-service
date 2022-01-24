@@ -832,6 +832,11 @@
             <version>4.1.72.Final</version>
         </dependency>
         <dependency>
+            <artifactId>netty-resolver-dns</artifactId>
+            <groupId>io.netty</groupId>
+            <version>4.1.72.Final</version>
+        </dependency>
+        <dependency>
             <artifactId>netty-codec-socks</artifactId>
             <groupId>io.netty</groupId>
             <version>4.1.72.Final</version>
