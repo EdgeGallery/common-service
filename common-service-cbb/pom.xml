@@ -766,6 +766,21 @@
             <artifactId>spring-test</artifactId>
             <version>5.2.19.RELEASE</version>
         </dependency>
+        <dependency>
+            <artifactId>json-smart</artifactId>
+            <groupId>net.minidev</groupId>
+            <version>2.4.7</version>
+        </dependency>
+        <dependency>
+            <artifactId>netty-transport</artifactId>
+            <groupId>io.netty</groupId>
+            <version>4.1.72.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+            <version>3.9.12</version>
+        </dependency>
     </dependencies>
 
     <build>
