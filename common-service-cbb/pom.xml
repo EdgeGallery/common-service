@@ -796,6 +796,11 @@
             <artifactId>netty-transport-native-unix-common</artifactId>
             <version>4.1.72.Final</version>
         </dependency>
+         <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-epoll</artifactId>
+            <version>4.1.72.Final</version>
+        </dependency>
     </dependencies>
 
     <build>
