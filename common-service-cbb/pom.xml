@@ -796,6 +796,11 @@
             <version>4.1.72.Final</version>
         </dependency>
         <dependency>
+            <artifactId>netty-common</artifactId>
+            <groupId>io.netty</groupId>
+            <version>4.1.72.Final</version>
+        </dependency>
+        <dependency>
             <artifactId>netty-transport</artifactId>
             <groupId>io.netty</groupId>
             <version>4.1.72.Final</version>
