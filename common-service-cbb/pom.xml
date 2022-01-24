@@ -804,6 +804,17 @@
             <artifactId>netty-handler</artifactId>
             <groupId>io.netty</groupId>
             <version>4.1.72.Final</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-tcnative-classes</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <artifactId>netty-resolver</artifactId>
+            <groupId>io.netty</groupId>
+            <version>4.1.72.Final</version>
         </dependency>
         <dependency>
             <artifactId>netty-transport</artifactId>
@@ -820,7 +831,7 @@
             <artifactId>netty-transport-native-unix-common</artifactId>
             <version>4.1.72.Final</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-transport-native-epoll</artifactId>
             <version>4.1.72.Final</version>
