@@ -245,7 +245,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>5.1.13.RELEASE</version>
+            <version>5.2.19.RELEASE</version>
             <exclusions>
                 <exclusion>
                     <artifactId>spring-core</artifactId>
@@ -319,7 +319,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>5.3.8.RELEASE</version>
+            <version>5.3.13.RELEASE</version>
         </dependency>
         <dependency>
             <artifactId>spring-core</artifactId>
@@ -356,7 +356,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.1.13.RELEASE</version>
+            <version>5.2.19.RELEASE</version>
             <exclusions>
                 <exclusion>
                     <artifactId>spring-aop</artifactId>
@@ -375,7 +375,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
-            <version>5.1.13.RELEASE</version>
+            <version>5.2.19.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -450,7 +450,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>5.1.13.RELEASE</version>
+            <version>5.2.19.RELEASE</version>
             <exclusions>
                 <exclusion>
                     <artifactId>spring-context</artifactId>
@@ -469,6 +469,16 @@
                     <groupId>org.springframework</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>2.3.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>2.3.3.RELEASE</version>
         </dependency>
         <dependency>
             <artifactId>spring-tx</artifactId>
@@ -615,7 +625,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
-            <version>5.3.10.RELEASE</version>
+            <version>5.3.13.RELEASE</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -683,7 +693,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>5.2.8.RELEASE</version>
+            <version>5.2.19.RELEASE</version>
             <exclusions>
                 <exclusion>
                     <artifactId>spring-beans</artifactId>
@@ -703,7 +713,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>5.3.10.RELEASE</version>
+            <version>5.3.13.RELEASE</version>
             <exclusions>
                 <exclusion>
                     <artifactId>spring-beans</artifactId>
@@ -727,7 +737,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>5.3.8.RELEASE</version>
+            <version>5.3.13.RELEASE</version>
             <exclusions>
                 <exclusion>
                     <artifactId>spring-beans</artifactId>
